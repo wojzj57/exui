@@ -29,6 +29,28 @@ pnpm lint
 pnpm build
 ```
 
+## Versioning
+
+This package uses Changesets for release notes, version bumps, and changelog generation.
+
+Create a changeset for user-facing changes:
+
+```bash
+pnpm changeset
+```
+
+Apply pending changesets to `package.json` and changelogs:
+
+```bash
+pnpm version-packages
+```
+
+Publish a built release:
+
+```bash
+pnpm release
+```
+
 ## shadcn/ui
 
 This repository keeps shadcn/ui components as source under `src/components/ui`.

@@ -6,19 +6,23 @@
   "packageManager": "pnpm@11.9.0",
   "main": "./dist/exui.js",
   "module": "./dist/exui.js",
-  "types": "./dist/index.d.ts",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./types/index.d.ts",
       "import": "./dist/exui.js"
     },
     "./style.css": {
-      "types": "./dist/index.css.d.ts",
+      "types": "./types/index.css.d.ts",
       "default": "./dist/index.css"
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist",
+    "types",
     "src/components",
     "src/hooks",
     "src/lib",
@@ -29,9 +33,12 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.app.json --noEmit && vite build && tsc -p tsconfig.lib.json && tsc-alias -p tsconfig.lib.json && node scripts/fix-css-dts.mjs",
+    "build": "tsc -p tsconfig.app.json --noEmit && vite build && node scripts/clean-types.mjs && tsc -p tsconfig.lib.json && tsc-alias -p tsconfig.lib.json && node scripts/fix-css-dts.mjs",
     "lint": "oxlint",
     "typecheck": "tsc -p tsconfig.app.json --noEmit",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -58,6 +65,7 @@
     "react-dom": ">=19.0.0 <20"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.0",
     "@fontsource-variable/outfit": "^5.2.8",
     "@tailwindcss/vite": "^4.3.2",
     "@types/node": "^24.13.2",
